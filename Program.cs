@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,17 +38,17 @@ namespace HackRank
                 LibraEnum sideNeedToBeHeavy = CharToLibraSideEnum(rightLeftString[0]);
                 if (IsValidMove(libra, sideNeedToBeHeavy, LibraEnum.LEFT_SIDE, weight))
                 {
-                    HandleLibra(LibraEnum.LEFT_SIDE, weight, weightStack, libra, rightLeftString, counter);
+                    HandleLibraMove(LibraEnum.LEFT_SIDE, weight, weightStack, libra, rightLeftString, counter);
                 }
                 if (IsValidMove(libra, sideNeedToBeHeavy, LibraEnum.RIGHT_SIDE, weight))
                 {
-                    HandleLibra(LibraEnum.RIGHT_SIDE, weight, weightStack, libra, rightLeftString, counter);
+                    HandleLibraMove(LibraEnum.RIGHT_SIDE, weight, weightStack, libra, rightLeftString, counter);
                 }
                 weightStack.Enqueue(weight);
             }
         }
 
-        private static void HandleLibra(LibraEnum side,
+        private static void HandleLibraMove(LibraEnum side,
             int weight, Queue<int> weightStack,
             Dictionary<LibraEnum, Stack<int>> libra,
             string rightLeftString,
