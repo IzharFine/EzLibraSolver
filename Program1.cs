@@ -7,6 +7,7 @@ namespace HackRank
     class Program
     {
         private static Dictionary<LibraEnum, int> _sumHelper = new Dictionary<LibraEnum, int>();
+        private static bool _isFinished = false;
 
         static void Main(string[] args)
         {
@@ -28,7 +29,6 @@ namespace HackRank
             libra[LibraEnum.RIGHT_SIDE] = new Stack<int>();
             libra[LibraEnum.LEFT_INDEX] = new Stack<int>();
             libra[LibraEnum.RIGHT_INDEX] = new Stack<int>();
-            libra[LibraEnum.IS_FINISHED] = new Stack<int>();
 
             _sumHelper.Add(LibraEnum.RIGHT_SIDE_SUM, 0);
             _sumHelper.Add(LibraEnum.LEFT_SIDE_SUM, 0);
@@ -40,7 +40,7 @@ namespace HackRank
             string rightLeftString,
             int counter)
         {
-            for(int i=0;i< weightStack.Count && libra[LibraEnum.IS_FINISHED].Count == 0; i++)
+            for(int i=0;i< weightStack.Count && !_isFinished; i++)
             {
                 int weight = weightStack.Dequeue();
                 LibraEnum sideNeedToBeHeavy = CharToLibraSideEnum(rightLeftString[0]);
@@ -48,7 +48,7 @@ namespace HackRank
                 {
                     HandleLibraMove(LibraEnum.LEFT_SIDE, weight, weightStack, libra, rightLeftString, counter);
                 }
-                if (libra[LibraEnum.IS_FINISHED].Count == 0 && IsValidMove(libra, sideNeedToBeHeavy, LibraEnum.RIGHT_SIDE, weight))
+                if (!_isFinished && IsValidMove(libra, sideNeedToBeHeavy, LibraEnum.RIGHT_SIDE, weight))
                 {
                     HandleLibraMove(LibraEnum.RIGHT_SIDE, weight, weightStack, libra, rightLeftString, counter);
                 }
@@ -68,13 +68,13 @@ namespace HackRank
 
             if (!weightStack.Any())
             {
-                libra[LibraEnum.IS_FINISHED].Push(1);
+                _isFinished = true;
                 return;
             }
 
             SolveLibra(weightStack, libra, rightLeftString.Substring(1, rightLeftString.Length - 1), ++counter);
 
-            if (libra[LibraEnum.IS_FINISHED].Count == 0)
+            if (!_isFinished)
             {
                 HandleLibraPop(side, weight, libra);
             }
@@ -151,7 +151,6 @@ namespace HackRank
             EQUAL,
             RIGHT_INDEX,
             LEFT_INDEX,
-            IS_FINISHED,
             ERROR,
             LEFT_SIDE_SUM,
             RIGHT_SIDE_SUM
