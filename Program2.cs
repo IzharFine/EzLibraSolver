@@ -24,25 +24,6 @@ namespace HackRank
             PrintLibra(libra, weightStack.Count);
         }
 
-        private static void PrintLibra(Dictionary<LibraEnum, Stack<int>> libra, int count)
-        {
-            Console.WriteLine("\r\nL \t R");
-            for(int i = count - 1; i >= 0; i--)
-            {
-                if(libra[LibraEnum.RIGHT_INDEX].Count != 0 && libra[LibraEnum.RIGHT_INDEX].Peek() == i)
-                {
-                    libra[LibraEnum.RIGHT_INDEX].Pop();
-                    Console.WriteLine($"\t {libra[LibraEnum.RIGHT_SIDE].Pop()}");
-                }
-                else
-                {
-                    libra[LibraEnum.LEFT_INDEX].Pop();
-                    Console.WriteLine($"{libra[LibraEnum.LEFT_SIDE].Pop()}");
-                }
-            }
-            Console.ReadLine();
-        }
-
         private static void InitLibra(Dictionary<LibraEnum, Stack<int>> libra, Dictionary<LibraEnum, int> sumHelper)
         {
             libra[LibraEnum.LEFT_SIDE] = new Stack<int>();
@@ -121,6 +102,25 @@ namespace HackRank
             int weight)
         {
             return sideNeedToBeHeavy == GetHeavySide(libra, addToSide, weight);
+        }
+
+        private static void PrintLibra(Dictionary<LibraEnum, Stack<int>> libra, int count)
+        {
+            Console.WriteLine("\r\nL \t R");
+            for (int i = count - 1; i >= 0; i--)
+            {
+                if (libra[LibraEnum.RIGHT_INDEX].Count != 0 && libra[LibraEnum.RIGHT_INDEX].Peek() == i)
+                {
+                    libra[LibraEnum.RIGHT_INDEX].Pop();
+                    Console.WriteLine($"\t {libra[LibraEnum.RIGHT_SIDE].Pop()}");
+                }
+                else
+                {
+                    libra[LibraEnum.LEFT_INDEX].Pop();
+                    Console.WriteLine($"{libra[LibraEnum.LEFT_SIDE].Pop()}");
+                }
+            }
+            Console.ReadLine();
         }
 
         private static LibraEnum GetHeavySide(Dictionary<LibraEnum, Stack<int>> libra, LibraEnum addToSide, int weight)
