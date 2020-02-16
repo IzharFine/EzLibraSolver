@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,6 +40,7 @@ namespace HackRank
                     Console.WriteLine($"{libra[LibraEnum.LEFT_SIDE].Pop()}");
                 }
             }
+            Console.ReadLine();
         }
 
         private static void InitLibra(Dictionary<LibraEnum, Stack<int>> libra, Dictionary<LibraEnum, int> sumHelper)
@@ -63,13 +64,13 @@ namespace HackRank
             {
                 int weight = weightStack.Dequeue();
                 LibraEnum sideNeedToBeHeavy = CharToLibraSideEnum(rightLeftString[0]);
-                if (IsValidMove(libra, sideNeedToBeHeavy, LibraEnum.LEFT_SIDE, weight))
+                if (IsValidMove(libra, sideNeedToBeHeavy, GetOppositeEnum(sideNeedToBeHeavy), weight))
                 {
-                    HandleLibraMove(LibraEnum.LEFT_SIDE, weight, weightStack, libra, rightLeftString, counter);
+                    HandleLibraMove(GetOppositeEnum(sideNeedToBeHeavy), weight, weightStack, libra, rightLeftString, counter);
                 }
-                if (!_isFinished && IsValidMove(libra, sideNeedToBeHeavy, LibraEnum.RIGHT_SIDE, weight))
+                if (!_isFinished && IsValidMove(libra, sideNeedToBeHeavy, sideNeedToBeHeavy, weight))
                 {
-                    HandleLibraMove(LibraEnum.RIGHT_SIDE, weight, weightStack, libra, rightLeftString, counter);
+                    HandleLibraMove(sideNeedToBeHeavy, weight, weightStack, libra, rightLeftString, counter);
                 }
                 weightStack.Enqueue(weight);
             }
